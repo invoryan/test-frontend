@@ -22,9 +22,9 @@ onMounted(async () => {
 const updateTask = async taskData => {
   try {
     await apiClient.put(`/api/tasks/${route.params.id}`, taskData)
-    router.push({ name: 'task-show' }) // Redirigir tras actualizar
+    router.push({ name: 'task-showall' }) // Redirigir tras actualizar
   } catch (error) {
-    errorMessage.value = 'Error al actualizar tarea'
+    //errorMessage.value = 'Error al actualizar tarea'
   }
 }
 </script>
@@ -32,7 +32,7 @@ const updateTask = async taskData => {
 <template>
   <div>
     <h2>Editar Tarea</h2>
-    <TaskForm v-if="task" :task="task" @submit="updateTask" />
+    <TaskForm v-if="task !== null" :task="{ ...task }" @submit="updateTask" />
     <p v-if="errorMessage">{{ errorMessage }}</p>
   </div>
 </template>

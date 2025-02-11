@@ -1,44 +1,53 @@
 <script setup>
-    import { ref, defineEmits } from 'vue'
+import { ref, watch, defineEmits, defineProps } from 'vue'
 
-    const emit = defineEmits(['submit'])
-    const form = ref({
-        title: '',
-        description: '',
-        due_date: '',
-        status: 'PENDIENTE',
-    })
+const emit = defineEmits(['submit'])
 
-    const rules = {
-    required: value => !!value || 'Este campo es obligatorio',
-    }
+const props = defineProps({
+  task: Object
+})
 
-    const formatData = () => {
-        return {
-            title: form.value.title,
-            description: form.value.description,
-            due_date: form.value.due_date,
-            status: form.value.status
-        }
-    }
+const form = ref({
+  title: '',
+  description: '',
+  due_date: '',
+  status: 'PENDIENTE',
+})
 
-    const submitForm = () => {
-    emit('submit', formatData())
-    }
+watch(() => props.task, (newTask) => {
+  if (newTask) {
+    form.value = { ...newTask }
+  }
+}, { immediate: true })
+
+const rules = {
+  required: value => !!value || 'Este campo es obligatorio',
+}
+
+const submitForm = () => {
+  emit('submit', form.value)
+}
 </script>
+
 <template>
-    <VForm @submit.prevent="submitForm">
-      <VTextField v-model="form.title" label="Título" :rules="[rules.required]" /> <br>
-      <VTextField v-model="form.description" label="Descripción" :rules="[rules.required]" /><br>
-      <VTextField v-model="form.due_date" label="Fecha límite" type="date" :rules="[rules.required]" /><br>
-      
-      <VSelect
-        v-model="form.status"
-        :items="['PENDIENTE', 'OBSERVADO', 'COMPLETADO']"
-        label="Estado"
-        :rules="[rules.required]"
-      /><br>
-  
-      <VBtn type="submit" color="primary">Guardar</VBtn>
-    </VForm>
+  <VForm @submit.prevent="submitForm">
+    <br><VTextField v-model="form.title" label="Título" :rules="[rules.required]" required /><br>
+    
+    <VTextField v-model="form.description" label="Descripción" :rules="[rules.required]" required /><br>
+    
+    <VTextField v-model="form.due_date" label="Fecha límite" type="date" :rules="[rules.required]" required /><br>
+    
+    <VSelect
+      v-model="form.status"
+      :items="['PENDIENTE','OBSERVADO', 'COMPLETADO']"
+      label="Estado"
+      :rules="[rules.required]"
+      required
+    />
+
+    <br><VBtn type="submit" color="primary">Guardar</VBtn>
+  </VForm>
 </template>
+
+<style scoped>
+</style>
