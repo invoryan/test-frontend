@@ -17,6 +17,6 @@ export default [
   {
     title: 'Crear Tarea',
     to: { name: 'task-create' },
-    icon: { icon: 'tabler-stack-2' },
+    icon: { icon: 'tabler-checklist' },
   },
 ]
