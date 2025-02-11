@@ -42,6 +42,10 @@ declare module 'vue-router/auto/routes' {
     'root': RouteRecordInfo<'root', '/', Record<never, never>, Record<never, never>>,
     '$error': RouteRecordInfo<'$error', '/:error(.*)', { error: ParamValue<true> }, { error: ParamValue<false> }>,
     'second-page': RouteRecordInfo<'second-page', '/second-page', Record<never, never>, Record<never, never>>,
+    'task-id': RouteRecordInfo<'task-id', '/task/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
+    'task-id-edit': RouteRecordInfo<'task-id-edit', '/task/:id/edit', { id: ParamValue<true> }, { id: ParamValue<false> }>,
+    'task-create': RouteRecordInfo<'task-create', '/task/create', Record<never, never>, Record<never, never>>,
+    'task-show-all': RouteRecordInfo<'task-show-all', '/task/show-all', Record<never, never>, Record<never, never>>,
     'user-list': RouteRecordInfo<'user-list', '/user/list', Record<never, never>, Record<never, never>>,
   }
 }
