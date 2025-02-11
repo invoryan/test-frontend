@@ -22,9 +22,10 @@ onMounted(async () => {
 const updateTask = async taskData => {
   try {
     await apiClient.put(`/api/tasks/${route.params.id}`, taskData)
-    router.push({ name: 'task-showall' }) // Redirigir tras actualizar
+    router.push({ name: 'task-show-all' })
   } catch (error) {
-    //errorMessage.value = 'Error al actualizar tarea'
+    console.error('Error al actualizar tarea:', error.response ? error.response.data : error)
+    errorMessage.value = 'Error al actualizar tarea'
   }
 }
 </script>
